@@ -37,6 +37,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import RichCodeEditor from "@/components/rich-code-editor/editor";
 
 const FormCourses = () => {
   const form = useForm<courseType>({
@@ -123,7 +124,7 @@ const FormCourses = () => {
                   <FormControl>
                     <Textarea
                       placeholder="Small description"
-                      className="min-h-[120px]"
+                      className="min-h-[120px] resize-none"
                       {...field}
                     />
                   </FormControl>
@@ -138,11 +139,12 @@ const FormCourses = () => {
                 <FormItem className="w-full">
                   <FormLabel>Descrption</FormLabel>
                   <FormControl>
-                    <Textarea
+                    <RichCodeEditor field={field} />
+                    {/* <Textarea
                       placeholder="Description"
-                      className="min-h-[120px]"
+                      className="min-h-[120px] resize-none"
                       {...field}
-                    />
+                    /> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -155,11 +157,7 @@ const FormCourses = () => {
                 <FormItem className="w-full">
                   <FormLabel>Thumbnail image</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Thumbnail image"
-                      className="min-h-[120px]"
-                      {...field}
-                    />
+                    <Input placeholder="Thumbnail image" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
