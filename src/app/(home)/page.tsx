@@ -1,99 +1,103 @@
+import { Marquee } from "@/components/magicui/marquee";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import {
+  Icon,
+  IconBooks,
+  IconChartBar,
+  IconDeviceGamepad2,
+  IconSend,
+  IconUsersGroup,
+} from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 
+interface featuresProps {
+  title: string;
+  description: string;
+  icon: Icon;
+}
+
+const features: featuresProps[] = [
+  {
+    title: "Comprenensive Courses",
+    description:
+      "Engage with interactive content, quizzes, and assignments to enhance your learning experience.",
+    icon: IconBooks,
+  },
+  {
+    title: "Interactive Learning",
+    description:
+      "Engage with interactive content, quizzes, and assignments to enhance your learning experience.",
+    icon: IconDeviceGamepad2,
+  },
+  {
+    title: "Progress 1rackang",
+    description:
+      "Monitor your progress and achievements with detailed analytics and personalized dashboards.",
+    icon: IconChartBar,
+  },
+  {
+    title: "Community Support",
+    description:
+      "Join a vibrant community of learners and instructors to collaborate and share knowledge.",
+    icon: IconUsersGroup,
+  },
+];
+
 export default function Home() {
   return (
-    <div className="container mx-auto p-8 pt-24">
-      <h1 className="mb-4 text-center text-3xl font-bold">
-        Check the navbar at the top of the container
-      </h1>
-      <p className="mb-10 text-center text-sm text-zinc-500">
-        For demo purpose we have kept the position as{" "}
-        <span className="font-medium">Sticky</span>. Keep in mind that this
-        component is <span className="font-medium">fixed</span> and will not
-        move when scrolling.
-      </p>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-        {[
-          {
-            id: 1,
-            title: "The",
-            width: "md:col-span-1",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-          {
-            id: 2,
-            title: "First",
-            width: "md:col-span-2",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-          {
-            id: 3,
-            title: "Rule",
-            width: "md:col-span-1",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-          {
-            id: 4,
-            title: "Of",
-            width: "md:col-span-3",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-          {
-            id: 5,
-            title: "F",
-            width: "md:col-span-1",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-          {
-            id: 6,
-            title: "Club",
-            width: "md:col-span-2",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-          {
-            id: 7,
-            title: "Is",
-            width: "md:col-span-2",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-          {
-            id: 8,
-            title: "You",
-            width: "md:col-span-1",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-          {
-            id: 9,
-            title: "Do NOT TALK about",
-            width: "md:col-span-2",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-          {
-            id: 10,
-            title: "F Club",
-            width: "md:col-span-1",
-            height: "h-60",
-            bg: "bg-neutral-100 dark:bg-neutral-800",
-          },
-        ].map((box) => (
-          <div
-            key={box.id}
-            className={`${box.width} ${box.height} ${box.bg} flex items-center justify-center rounded-lg p-4 shadow-sm`}
-          >
-            <h2 className="text-xl font-medium">{box.title}</h2>
-          </div>
-        ))}
-      </div>
-    </div>
+    <>
+      <section className="py-20 px-4 ">
+        <div className="flex flex-col justify-center items-center">
+          <Badge variant={"outline"}>🎉 The Future of Online Education</Badge>
+          <h1 className="font-bold text-7xl text-primary/100 py-8">
+            Elevate your Learning Experience
+          </h1>
+          <span className="text-muted-foreground max-w-xl text-center ">
+            Discover a new way to learn with our modern, interactive learning
+            management system. Access high-quality courses anytime, anywhere.
+          </span>
+        </div>
+        <div className="flex items-center justify-center space-x-4 mt-12">
+          <Button>
+            <IconSend /> Get Started
+          </Button>
+          <Button variant={"secondary"}>Sigin courses</Button>
+        </div>
+      </section>
+      <section className="overflow-hidden relative w-full">
+        <div className="absolute bg-gradient-to-r from-background via-transparent to-background z-50 h-[500px] w-full" />
+        <Marquee pauseOnHover className=" [--duration:20s]">
+          {features.map((item) => (
+            <figure
+              key={item.title}
+              className={cn(
+                "relative h-full w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+                // light styles
+                "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+                // dark styles
+                "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
+              )}
+            >
+              <div className="flex flex-row items-center gap-2">
+                <item.icon />
+                <div className="flex flex-col">
+                  <p className="text-xs font-medium dark:text-white/40">
+                    {item.title}
+                  </p>
+                </div>
+              </div>
+              <blockquote className="mt-2 text-sm">
+                {item.description}
+              </blockquote>
+            </figure>
+          ))}
+        </Marquee>
+      </section>
+      <section></section>
+    </>
   );
 }

@@ -13,19 +13,13 @@ import {
 import { ReactNode, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { useSignout } from "@/hooks/use-logout";
+import NavUser from "./nav-user";
 
-const NavbarHome = ({ children }: { children: ReactNode }) => {
+const NavbarHome = () => {
   const session = authClient.useSession();
-  const router = useRouter();
-  const handleLogout = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/");
-        },
-      },
-    });
-  };
 
   const navItems = [
     {
@@ -53,16 +47,14 @@ const NavbarHome = ({ children }: { children: ReactNode }) => {
           <NavItems items={navItems} />
           <div className="flex items-center">
             {session.data?.user ? (
-              <NavbarButton variant="secondary" onClick={handleLogout}>
-                Logout
-              </NavbarButton>
+              <NavUser />
             ) : (
-              <NavbarButton variant="secondary" href="/login">
-                Login
-              </NavbarButton>
+              <Link href="/login" className="z-50">
+                <Button className="rounded-3xl" variant={"outline"}>
+                  Login
+                </Button>
+              </Link>
             )}
-
-            <NavbarButton variant="primary">Book a call</NavbarButton>
           </div>
         </NavBody>
 
@@ -110,7 +102,6 @@ const NavbarHome = ({ children }: { children: ReactNode }) => {
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
-      {children}
 
       {/* Navbar */}
     </div>
