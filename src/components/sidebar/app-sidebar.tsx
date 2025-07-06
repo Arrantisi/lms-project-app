@@ -25,6 +25,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 const data = {
   user: {
@@ -34,27 +35,27 @@ const data = {
   },
   navMain: [
     {
-      title: "Dashboard",
+      title: "dashboard",
       url: "/admin",
       icon: IconDashboard,
     },
     {
-      title: "Courses",
+      title: "courses",
       url: "/admin/courses",
       icon: IconBookFilled,
     },
     {
-      title: "Analytics",
+      title: "analytics",
       url: "#",
       icon: IconChartBar,
     },
     {
-      title: "Projects",
+      title: "projects",
       url: "#",
       icon: IconFolder,
     },
     {
-      title: "Team",
+      title: "team",
       url: "#",
       icon: IconUsers,
     },
@@ -88,10 +89,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="/">
+              <Link href="/">
                 <IconInnerShadowTop className="!size-5" />
                 <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

@@ -1,8 +1,7 @@
 "use client";
 
-import { IconCirclePlusFilled, IconMail, type Icon } from "@tabler/icons-react";
+import { IconCirclePlusFilled, type Icon } from "@tabler/icons-react";
 
-import { Button } from "@/components/ui/button";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -23,6 +22,8 @@ export function NavMain({
   }[];
 }) {
   const pathname = usePathname();
+  const activeSidebarButton =
+    pathname.split("/").length === 2 ? "dashboard" : pathname.split("/")[2];
 
   return (
     <SidebarGroup>
@@ -43,7 +44,7 @@ export function NavMain({
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 tooltip={item.title}
-                isActive={item.url === pathname}
+                isActive={item.title === activeSidebarButton}
                 className="data-[active=true]:bg-gradient-to-r from-primary to-transparent data-[active=true]:rounded-xs data-[active=true]:hover:bg-transparent"
                 asChild
               >

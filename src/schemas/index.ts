@@ -38,3 +38,10 @@ export const courseSchema = z.object({
 });
 
 export type courseType = z.infer<typeof courseSchema>;
+
+export const uploadFileSchema = z.object({
+  fileName: z.string().min(1),
+  contentType: z.string().min(1),
+  size: z.number().min(1),
+  isImage: z.boolean(),
+});
