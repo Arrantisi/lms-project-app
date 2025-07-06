@@ -1,27 +1,17 @@
 import { buttonVariants } from "@/components/ui/button";
-import { IconArrowLeft } from "@tabler/icons-react";
+import { IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
-import React from "react";
-import FormCourses from "./_component/form-courses";
 
 const CoursesPage = () => {
   return (
-    <div className="m-4 space-y-6">
-      <div className="flex items-center gap-2">
+    <div className="m-4">
+      <div className="flex justify-end items-center w-full">
         <Link
-          href={"/admin"}
-          className={buttonVariants({
-            variant: "secondary",
-            size: "icon",
-          })}
+          href={"/admin/courses/create-courses"}
+          className={buttonVariants()}
         >
-          <IconArrowLeft />
+          <IconPlus /> Create Courses
         </Link>
-        <span>Back to admin dashboard</span>
-      </div>
-
-      <div>
-        <FormCourses />
       </div>
     </div>
   );
