@@ -1,7 +1,6 @@
 import { Marquee } from "@/components/magicui/marquee";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import {
   Icon,
@@ -11,8 +10,6 @@ import {
   IconSend,
   IconUsersGroup,
 } from "@tabler/icons-react";
-import Image from "next/image";
-import Link from "next/link";
 
 interface featuresProps {
   title: string;
@@ -97,7 +94,6 @@ export default function Home() {
           ))}
         </Marquee>
       </section>
-      <section></section>
     </>
   );
 }

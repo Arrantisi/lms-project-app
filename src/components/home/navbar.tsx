@@ -10,12 +10,10 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { useSignout } from "@/hooks/use-logout";
 import NavUser from "./nav-user";
 
 const NavbarHome = () => {

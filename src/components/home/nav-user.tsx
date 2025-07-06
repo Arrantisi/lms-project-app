@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  BoltIcon,
-  BookOpenIcon,
-  CircleUserRoundIcon,
-  Layers2Icon,
-  LogOutIcon,
-  PinIcon,
-  UserPenIcon,
-} from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -29,6 +21,7 @@ import {
   IconSettingsCog,
 } from "@tabler/icons-react";
 import Link from "next/link";
+import { Skeleton } from "../ui/skeleton";
 
 export default function NavUser() {
   const { data: session, isPending } = authClient.useSession();
@@ -37,25 +30,32 @@ export default function NavUser() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          size="icon"
-          variant="ghost"
-          aria-label="Open account menu"
-          className="z-50 rounded-full"
-        >
-          <Image
-            src={session?.user.image ?? "/profile-9.png"}
-            alt="Avatar"
-            width={32}
-            height={32}
-            className="shrink-0 rounded-full"
-          />
-        </Button>
+        {isPending ? (
+          <Skeleton className="rounded-full size-8" />
+        ) : (
+          <Button
+            size="icon"
+            variant="ghost"
+            aria-label="Open account menu"
+            className="z-50 rounded-full"
+          >
+            <Image
+              src={session?.user.image ?? "/profile-9.png"}
+              alt="Avatar"
+              width={32}
+              height={32}
+              className="shrink-0 rounded-full"
+            />
+          </Button>
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="max-w-64">
         <DropdownMenuLabel className="flex items-start gap-3">
           <Image
-            src={session?.user.image ?? "/profile-9.png"}
+            src={
+              session?.user.image ??
+              "https://avatar.vercel.sh/rauchg?rounded=60"
+            }
             alt="Avatar"
             width={32}
             height={32}
@@ -63,7 +63,9 @@ export default function NavUser() {
           />
           <div className="flex min-w-0 flex-col">
             <span className="text-foreground truncate text-sm font-medium">
-              {session?.user.name}
+              {session?.user.name
+                ? session.user.name
+                : session?.user.email.split("@")[0]}
             </span>
             <span className="text-muted-foreground truncate text-xs font-normal">
               {session?.user.email}

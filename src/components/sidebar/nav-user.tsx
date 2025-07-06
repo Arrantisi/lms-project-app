@@ -27,6 +27,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { useSignout } from "@/hooks/use-logout";
 import Link from "next/link";
+import { Skeleton } from "../ui/skeleton";
 
 export function NavUser({
   user,
@@ -46,30 +47,36 @@ export function NavUser({
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage
-                  src={
-                    session?.user.image ??
-                    "https://avatar.vercel.sh/rauchg?rounded=60"
-                  }
-                  alt={user.name}
-                />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-              </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">
-                  {session?.user.name}
-                </span>
-                <span className="text-muted-foreground truncate text-xs">
-                  {session?.user.email}
-                </span>
-              </div>
-              <IconDotsVertical className="ml-auto size-4" />
-            </SidebarMenuButton>
+            {isPending ? (
+              <Skeleton className="w-full h-10" />
+            ) : (
+              <SidebarMenuButton
+                size="lg"
+                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              >
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarImage
+                    src={
+                      session?.user.image ??
+                      "https://avatar.vercel.sh/rauchg?rounded=60"
+                    }
+                    alt={user.name}
+                  />
+                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                </Avatar>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-medium">
+                    {!session?.user.name
+                      ? session?.user.email.split("@")[0]
+                      : session.user.name}
+                  </span>
+                  <span className="text-muted-foreground truncate text-xs">
+                    {session?.user.email}
+                  </span>
+                </div>
+                <IconDotsVertical className="ml-auto size-4" />
+              </SidebarMenuButton>
+            )}
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
@@ -91,7 +98,9 @@ export function NavUser({
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">
-                    {session?.user.name}
+                    {!session?.user.name
+                      ? session?.user.email.split("@")[0]
+                      : session.user.name}
                   </span>
                   <span className="text-muted-foreground truncate text-xs">
                     {session?.user.email}
