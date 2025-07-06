@@ -26,6 +26,9 @@ import { Skeleton } from "../ui/skeleton";
 export default function NavUser() {
   const { data: session, isPending } = authClient.useSession();
   const handleSignout = useSignout();
+  const username = session?.user.name
+    ? session.user.name
+    : session?.user.email.split("@")[0];
 
   return (
     <DropdownMenu>
@@ -54,7 +57,7 @@ export default function NavUser() {
           <Image
             src={
               session?.user.image ??
-              "https://avatar.vercel.sh/rauchg?rounded=60"
+              `https://ui-avatars.com/api/?name=${username}&background=0D8ABC&color=fff`
             }
             alt="Avatar"
             width={32}
@@ -63,9 +66,7 @@ export default function NavUser() {
           />
           <div className="flex min-w-0 flex-col">
             <span className="text-foreground truncate text-sm font-medium">
-              {session?.user.name
-                ? session.user.name
-                : session?.user.email.split("@")[0]}
+              {username}
             </span>
             <span className="text-muted-foreground truncate text-xs font-normal">
               {session?.user.email}

@@ -41,6 +41,9 @@ export function NavUser({
   const { isMobile } = useSidebar();
   const { data: session, isPending } = authClient.useSession();
   const handleSignout = useSignout();
+  const username = !session?.user.name
+    ? session?.user.email.split("@")[0]
+    : session.user.name;
 
   return (
     <SidebarMenu>
@@ -58,7 +61,7 @@ export function NavUser({
                   <AvatarImage
                     src={
                       session?.user.image ??
-                      "https://avatar.vercel.sh/rauchg?rounded=60"
+                      `https://ui-avatars.com/api/?name=${username}&background=0D8ABC&color=fff`
                     }
                     alt={user.name}
                   />
@@ -90,7 +93,7 @@ export function NavUser({
                   <AvatarImage
                     src={
                       session?.user.image ??
-                      "https://avatar.vercel.sh/rauchg?rounded=60"
+                      `https://ui-avatars.com/api/?name=${username}&background=0D8ABC&color=fff`
                     }
                     alt={user.name}
                   />

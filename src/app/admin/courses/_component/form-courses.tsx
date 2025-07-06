@@ -38,6 +38,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import RichCodeEditor from "@/components/rich-code-editor/editor";
+import Uploader from "@/components/file-uploader/uploader";
 
 const FormCourses = () => {
   const form = useForm<courseType>({
@@ -140,11 +141,6 @@ const FormCourses = () => {
                   <FormLabel>Descrption</FormLabel>
                   <FormControl>
                     <RichCodeEditor field={field} />
-                    {/* <Textarea
-                      placeholder="Description"
-                      className="min-h-[120px] resize-none"
-                      {...field}
-                    /> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -157,7 +153,7 @@ const FormCourses = () => {
                 <FormItem className="w-full">
                   <FormLabel>Thumbnail image</FormLabel>
                   <FormControl>
-                    <Input placeholder="Thumbnail image" {...field} />
+                    <Uploader />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
