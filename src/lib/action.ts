@@ -73,3 +73,41 @@ export const createCourse = async (
     };
   }
 };
+
+export const editCourse = async (
+  formData: courseType,
+  courseId: string
+): Promise<courseCreateType> => {
+  const session = await requiredAdmin();
+
+  try {
+    const validation = courseSchema.safeParse(formData);
+
+    if (!validation.success) {
+      return {
+        status: "error",
+        message: "Invalid Data",
+      };
+    }
+
+    await prisma.course.update({
+      where: {
+        id: courseId,
+        userId: session.user.id,
+      },
+      data: {
+        ...validation.data,
+      },
+    });
+
+    return {
+      status: "success",
+      message: "Edit course was successfully",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "there unexpected error at server",
+    };
+  }
+};

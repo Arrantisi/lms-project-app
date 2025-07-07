@@ -12,6 +12,7 @@ import {
 } from "./render-state";
 import { v4 as uuidV4 } from "uuid";
 import { toast } from "sonner";
+import { useConstruct } from "@/hooks/use-construct-url";
 
 interface UploadFileI {
   id: string | null;
@@ -31,6 +32,8 @@ interface IAppUploader {
 }
 
 const Uploader = ({ value, onChange }: IAppUploader) => {
+  const Thumbnail = useConstruct(value || "");
+
   const [fileState, setFileState] = useState<UploadFileI>({
     id: null,
     file: null,
@@ -40,6 +43,7 @@ const Uploader = ({ value, onChange }: IAppUploader) => {
     isDeleting: false,
     fileType: "image",
     key: value,
+    objectUrl: value ? Thumbnail : "",
   });
 
   const uploadFile = useCallback(

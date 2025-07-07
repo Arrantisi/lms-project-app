@@ -1,5 +1,3 @@
-Terima kasih! Berikut ini adalah versi `README.md` yang sudah **disesuaikan untuk proyek LMS kamu yang menggunakan `shadcn/ui`**:
-
 ---
 
 ````md
@@ -42,6 +40,7 @@ A modern, full-stack LMS (Learning Management System) built with **Next.js App R
 ```bash
 pnpm install
 ```
+
 ````
 
 ### 2. Setup database and Prisma
@@ -49,7 +48,7 @@ pnpm install
 ```bash
 pnpm prisma generate
 pnpm prisma migrate dev
-```
+````
 
 ### 3. Start the dev server
 
@@ -146,3 +145,7 @@ lib/                  # Utils, middlewares, db client
 MIT License © 2025
 
 ---
+
+```
+
+```
