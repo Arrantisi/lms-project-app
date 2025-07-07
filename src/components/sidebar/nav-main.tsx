@@ -45,7 +45,7 @@ export function NavMain({
               <SidebarMenuButton
                 tooltip={item.title}
                 isActive={item.title === activeSidebarButton}
-                className="data-[active=true]:bg-gradient-to-r from-primary to-transparent data-[active=true]:rounded-xs data-[active=true]:hover:bg-transparent"
+                className=" data-[active=true]:bg-gradient-to-r from-primary to-transparent data-[active=true]:rounded-xs data-[active=true]:hover:bg-transparent"
                 asChild
               >
                 <Link href={item.url}>

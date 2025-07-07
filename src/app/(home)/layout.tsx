@@ -1,7 +1,7 @@
 import NavbarHome from "@/components/home/navbar";
 import { ReactNode } from "react";
 
-const HomeLayout = async ({ children }: { children: ReactNode }) => {
+const HomeLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="">
       <NavbarHome />
