@@ -5,10 +5,41 @@ import { NextResponse } from "next/server";
 import { v4 as uuidV4 } from "uuid";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { s3 } from "@/lib/s3-client";
+import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import { requiredAdmin } from "@/lib/data/required-admin";
+
+const aj = arcjet
+  .withRule(
+    detectBot({
+      mode: "LIVE",
+      allow: [],
+    })
+  )
+  .withRule(
+    fixedWindow({
+      mode: "LIVE",
+      max: 5,
+      window: "1m",
+    })
+  );
 
 export async function POST(request: Request) {
+  const session = await requiredAdmin();
+
   try {
     const body = await request.json();
+
+    const decision = await aj.protect(request, {
+      figenrprint: session.user.id,
+    });
+
+    if (decision.isDenied())
+      return NextResponse.json(
+        {
+          error: "was problem",
+        },
+        { status: 429 }
+      );
 
     const validate = uploadFileSchema.safeParse(body);
 

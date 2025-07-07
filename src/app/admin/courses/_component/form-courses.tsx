@@ -14,7 +14,7 @@ import {
   levelCouerses,
   statusCourses,
 } from "@/schemas";
-import React from "react";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { IconPlus, IconSparkles } from "@tabler/icons-react";
+import { IconLoader2, IconPlus, IconSparkles } from "@tabler/icons-react";
 import slugify from "slugify";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -39,8 +39,16 @@ import {
 } from "@/components/ui/select";
 import RichCodeEditor from "@/components/rich-code-editor/editor";
 import Uploader from "@/components/file-uploader/uploader";
+import { tryCatch } from "@/hooks/try-catch";
+import { createCourse } from "@/lib/action";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const FormCourses = () => {
+  const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
+
   const form = useForm<courseType>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
@@ -57,8 +65,23 @@ const FormCourses = () => {
     },
   });
 
-  const handleSubmit = async (values: courseType) => {
-    console.log({ values });
+  const handleSubmit = (values: courseType) => {
+    startTransition(async () => {
+      const { data: result, error } = await tryCatch(createCourse(values));
+
+      if (error) {
+        console.log(error);
+        toast.error("was unexpected error");
+      }
+
+      if (result?.status === "success") {
+        toast.success(result.message);
+        form.reset();
+        router.push("/admin/courses");
+      } else if (result?.status === "error") {
+        toast.error(result.message);
+      }
+    });
   };
 
   const handleSlug = () => {
@@ -125,7 +148,7 @@ const FormCourses = () => {
                   <FormControl>
                     <Textarea
                       placeholder="Small description"
-                      className="min-h-[120px] resize-none"
+                      className="min-h-[60px] resize-none"
                       {...field}
                     />
                   </FormControl>
@@ -271,8 +294,13 @@ const FormCourses = () => {
               )}
             />
 
-            <Button>
-              <IconPlus /> Create Courses
+            <Button className="w-40" disabled={isPending}>
+              {isPending ? (
+                <IconLoader2 className="animate-spin" />
+              ) : (
+                <IconPlus />
+              )}{" "}
+              Create Courses
             </Button>
           </form>
         </Form>

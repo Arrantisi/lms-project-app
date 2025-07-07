@@ -82,6 +82,7 @@ export const RenderProgresState = ({
 }) => {
   return (
     <div className="flex items-center flex-col space-y-2">
+      <p className="font-semibold text-xl text-center">Uploading...</p>
       <p className="font-bold text-5xl">{progress}%</p>
       <p className="max-w-sm truncate text-sm text-muted-foreground">
         {file.name}
