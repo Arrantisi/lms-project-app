@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Terima kasih! Berikut ini adalah versi `README.md` yang sudah **disesuaikan untuk proyek LMS kamu yang menggunakan `shadcn/ui`**:
 
-## Getting Started
+---
 
-First, run the development server:
+````md
+# 📚 LMS App (Learning Management System)
+
+A modern, full-stack LMS (Learning Management System) built with **Next.js App Router**, **Prisma**, **PostgreSQL**, and styled using **shadcn/ui**. The app features authentication with GitHub, file uploads to AWS S3, email sending with Resend, and secure session management via Better Auth.
+
+---
+
+## 🚀 Features
+
+- ✅ **User authentication** with GitHub OAuth
+- 🔐 Custom session handling using **Better Auth**
+- 🧩 **Modular UI components** via `shadcn/ui`
+- ☁️ **File uploads** with AWS S3
+- 📬 **Email notifications** with Resend
+- 🛡️ **Arcjet** protection for bot/rate limiting
+- 🗃️ Database ORM with **Prisma** and **Neon DB**
+
+---
+
+## 🛠️ Tech Stack
+
+- **Next.js 14+** (App Router)
+- **shadcn/ui** (Tailwind + Radix UI)
+- **Prisma ORM**
+- **PostgreSQL** (Neon.tech)
+- **GitHub OAuth** (Login)
+- **Better Auth** (Session/Auth handler)
+- **AWS S3** (for media/file storage)
+- **Resend** (for emails)
+- **Arcjet** (security layer)
+
+---
+
+## 🧪 Local Development
+
+### 1. Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+```
+````
+
+### 2. Setup database and Prisma
+
+```bash
+pnpm prisma generate
+pnpm prisma migrate dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Start the dev server
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Then visit: [http://localhost:3000](http://localhost:3000)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ⚙️ Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Copy `.env.example` ke `.env.local`, lalu sesuaikan nilainya:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+cp .env.example .env.local
+```
 
-## Deploy on Vercel
+### Contoh `.env.local`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+# PostgreSQL database (Neon)
+DATABASE_URL="postgresql://USERNAME:PASSWORD@HOST:PORT/DATABASE?sslmode=require&channel_binding=require"
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Better Auth
+BETTER_AUTH_SECRET=your_super_secret
+BETTER_AUTH_URL=http://localhost:3000
+
+# GitHub OAuth
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_SECRET_CLIENT=your_github_secret
+
+# Resend API
+RESENT_API_KEY=your_resend_api_key
+
+# Arcjet (optional security layer)
+ARCJET_KEY=your_arcjet_key
+
+# AWS S3 configuration
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret
+AWS_ENDPOINT_URL_S3=https://s3.your-provider.com
+AWS_ENDPOINT_URL_IAM=https://iam.your-provider.com
+AWS_REGION=your_region
+
+# Public S3 Bucket Name
+NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES=your_bucket_name
+```
+
+> ⚠️ **Jangan pernah commit `.env.local` ke Git.** File ini berisi kredensial penting.
+
+---
+
+## 🎨 UI Components with shadcn/ui
+
+Komponen UI pada aplikasi ini dibangun menggunakan [shadcn/ui](https://ui.shadcn.com), kombinasi Tailwind CSS + Radix UI dengan pendekatan komponen modular:
+
+- Modal, Dialog, Dropdown, Tabs
+- Button, Card, Input, Avatar, dll
+- Dikustomisasi lewat `tailwind.config.js` dan `components.json`
+
+Untuk menambahkan komponen baru:
+
+```bash
+npx shadcn-ui@latest add <component>
+```
+
+Contoh:
+
+```bash
+npx shadcn-ui@latest add dialog
+```
+
+---
+
+## 📁 Project Structure
+
+```
+app/
+ ├─ (auth)/           # Auth routes
+ ├─ dashboard/        # Protected routes
+ ├─ api/              # API routes
+ └─ components/       # UI components (shadcn/ui)
+prisma/
+ └─ schema.prisma     # Database schema
+lib/                  # Utils, middlewares, db client
+```
+
+---
+
+## ✅ License
+
+MIT License © 2025
+
+---
